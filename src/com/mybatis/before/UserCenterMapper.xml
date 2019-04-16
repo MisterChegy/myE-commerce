@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.UserCenterDao">
+	<select id="myOrder"  resultType="map" parameterType="Integer">
+		select id, amount, busertable_id, status, orderdate  from ORDERBASETABLE where busertable_id = #{bid} 
+	</select>
+	<select id="myFocus" resultType="map"  parameterType="Integer">
+		select gt.id, gt.gname, gt.goprice, gt.grprice, gt.gpicture from FOCUSTABLE ft, GOODSTABLE gt 
+		 where ft.goodstable_id=gt.id and  ft.busertable_id = #{bid} 
+	</select>
+	<select id="orderDetail" resultType="map"  parameterType="Integer">
+		select gt.id, gt.gname, gt.goprice, gt.grprice, gt.gpicture, odt.shoppingnum from  GOODSTABLE gt, ORDERDETAIL odt 
+		where  odt.orderbasetable_id=#{ordersn} and gt.id=odt.goodstable_id 
+	</select>
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.AdminNoticeDao">
+	<select id="deleteNoticeSelect"  resultType="Notice" >
+		select * from noticetable
+	</select>
+	<insert id="addNotice" parameterType="Notice">
+		insert into noticetable (id,ntitle,ncontent,ntime) 
+		values (null,#{ntitle},#{ncontent},now())
+	</insert>
+	<delete id="deleteNotice" parameterType="Integer">
+		delete from noticetable where id = #{id}
+	</delete>
+	<select id="selectANotice"  resultType="Notice" parameterType="Integer">
+		select * from noticetable where id = #{id}
+	</select> 
+</mapper>

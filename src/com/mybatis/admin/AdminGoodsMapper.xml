@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.AdminGoodsDao">
+	<!-- 查询商品 -->
+	<select id="selectGoods"  resultType="Goods">
+		select * from goodstable
+	</select>
+	<!-- 分页查询商品 -->
+	<select id="selectAllGoodsByPage"  resultType="Goods" parameterType="map">
+		select * from goodstable order by id limit #{startIndex}, #{perPageSize}
+	</select>
+	<!-- 添加商品 -->
+	<insert id="addGoods" parameterType="Goods">
+		insert into goodstable (id,gname,goprice,grprice,gstore,gpicture,goodstype_id) 
+		values (null, #{gname}, #{goprice}, #{grprice}, #{gstore}, #{gpicture}, #{goodstype_id})
+	</insert>
+	<!-- 根据id查询一个商品 -->
+	<select id="selectGoodsById"  resultType="Goods" parameterType="Integer">
+		select gt.*,gy.typename from goodstable gt,goodstype gy where gt.id=#{id} and gt.goodstype_id = gy.id
+	</select>
+	<!-- 删除多个商品 -->
+	<delete id="deleteGoods"  parameterType="List">
+		delete from goodstable where id in
+		<foreach item="item" index="index" collection="list"
+		open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	<!-- 删除单个商品 -->
+	<delete id="deleteAGoods" parameterType="Integer">
+		delete from goodstable where id=#{id}
+	</delete>
+	<!-- 修改一个商品 -->
+	<update id="updateGoodsById" parameterType="Goods">
+    update goodstable
+    <set>
+      <if test="gname != null">
+        gname = #{gname},
+      </if>
+      <if test="goprice != null">
+        goprice = #{goprice},
+      </if>
+      <if test="grprice != null">
+        grprice = #{grprice},
+      </if>
+      <if test="gstore != null">
+        gstore = #{gstore},
+      </if>
+      <if test="gpicture != null">
+        gpicture = #{gpicture},
+      </if>
+      <if test="goodstype_id != null">
+        goodstype_id = #{goodstype_id},
+      </if>
+    </set>
+    	where id = #{id}
+  </update>
+  <!-- 查询关联商品 -->
+  <select id="selectCartGoods" parameterType="Integer" resultType="map">
+  	select * from carttable where goodstable_id=#{id}
+  </select>
+  <select id="selectFocusGoods" parameterType="Integer" resultType="map">
+  	select * from focustable where goodstable_id=#{id}
+  </select>
+  <select id="selectOrderdetailGoods" parameterType="Integer" resultType="map">
+  	select * from orderdetail where goodstable_id=#{id}
+  </select>
+</mapper>
