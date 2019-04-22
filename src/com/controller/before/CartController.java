@@ -15,42 +15,42 @@ public class CartController extends BaseBeforeController{
 	@Autowired
 	private CartService cartService;
 	/**
-	 * ¹Ø×¢ÉÌÆ·
+	 * å…³æ³¨å•†å“
 	 */
 	@RequestMapping("/focus")
 	public String focus(Model model,Integer id, HttpSession session) {
 		return cartService.focus(model, id, session);
 	}
 	/**
-	 * Ìí¼Ó¹ºÎï³µ
+	 * æ·»åŠ è´­ç‰©è½¦
 	 */
 	@RequestMapping("/putCart")
 	public String putCart(Model model,Integer shoppingnum, Integer id, HttpSession session) {
 		return cartService.putCart(model, shoppingnum, id, session);
 	}
 	/**
-	 * ²éÑ¯¹ºÎï³µ
+	 * æŸ¥è¯¢è´­ç‰©è½¦
 	 */
 	@RequestMapping("/selectCart")
 	public String selectCart(Model model, HttpSession session) {
 		return cartService.selectCart(model, session);
 	}
 	/**
-	 * É¾³ı¹ºÎï³µ
+	 * åˆ é™¤è´­ç‰©è½¦
 	 */
 	@RequestMapping("/deleteAgoods")
 	public String deleteAgoods(Integer id,HttpSession session) {
 		return cartService.deleteAgoods(id, session);
 	}
 	/**
-	 * Çå¿Õ¹ºÎï³µ
+	 * æ¸…ç©ºè´­ç‰©è½¦
 	 */
 	@RequestMapping("/clear")
 	public String clear(HttpSession session) {
 		return cartService.clear(session);
 	}
 	/**
-	 * È¥½áËã
+	 * å»ç»“ç®—
 	 */
 	@RequestMapping("/orderConfirm")
 	public String orderConfirm(Model model, HttpSession session) {

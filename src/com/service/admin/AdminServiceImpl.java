@@ -14,15 +14,15 @@ public class AdminServiceImpl implements AdminService{
 	private AdminDao adminDao;
 	@Autowired
 	private AdminTypeDao adminTypeDao;
-	@Override
+	
 	public String login(Auser auser, Model model, HttpSession session) {
 		if(adminDao.login(auser) != null && adminDao.login(auser).size() > 0) {
 			session.setAttribute("auser", auser);
-			//Ìí¼ÓÉÌÆ·ÓëĞŞ¸ÄÉÌÆ·Ò³ÃæÊ¹ÓÃ
+			//æ·»åŠ å•†å“ä¸ä¿®æ”¹å•†å“é¡µé¢ä½¿ç”¨
 			session.setAttribute("goodsType", adminTypeDao.selectGoodsType());
 			return "admin/main";
 		}
-		model.addAttribute("msg", "ÓÃ»§Ãû»òÃÜÂë´íÎó£¡");
+		model.addAttribute("msg", "Error in username or password!");
 		return "admin/login";
 	}
 

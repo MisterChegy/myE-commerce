@@ -11,28 +11,28 @@ public class AdminTypeController extends BaseController{
 	@Autowired
 	private AdminTypeService adminTypeService;
 	/**
-	 * µ½Ìí¼ÓÀàĞÍÒ³Ãæ
+	 * åˆ°æ·»åŠ ç±»å‹é¡µé¢
 	 */
 	@RequestMapping("/toAddType")
 	public String toAddType(Model model) {
 		return adminTypeService.toAddType(model);
 	}
 	/**
-	 * Ìí¼ÓÀàĞÍ
+	 * æ·»åŠ ç±»å‹
 	 */
 	@RequestMapping("/addType")
 	public String addType(String typename,Model model,HttpSession session) {
 		return adminTypeService.addType(typename, model, session);
 	}
 	/**
-	 * µ½É¾³ıÒ³Ãæ
+	 * åˆ°åˆ é™¤é¡µé¢
 	 */
 	@RequestMapping("/toDeleteType")
 	public String toDeleteType(Model model) {
 		return adminTypeService.toDeleteType(model);
 	}
 	/**
-	 * É¾³ıÀàĞÍ
+	 * åˆ é™¤ç±»å‹
 	 */
 	@RequestMapping("/deleteType")
 	public String deleteType(Integer id,Model model) {

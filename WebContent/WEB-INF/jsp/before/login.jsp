@@ -22,19 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		height: 20px;
 	}
 	</style>
-	<script type="text/javascript">
-	//确定按钮
-	function gogo(){
-		document.loginform.submit();
-	}
-	//取消按钮
-	function cancel(){
-		document.loginform.action="";
-	}
-	function refreshCode(){
-		document.getElementById("code").src = "validateCode?" + Math.random();
-    }
-	</script>
+	
   </head>
   <body>
   	<center>
@@ -73,5 +61,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</form:form>
 	${msg }
 	</center>
+	
+	<script type="text/javascript">
+	//确定按钮
+	function gogo(){
+		document.loginform.submit();
+	}
+	//取消按钮
+	function cancel(){
+		document.loginform.action="";
+	}
+	function refreshCode(){
+		document.getElementById("code").src = "validateCode?" + Math.random();
+    }
+	</script>
   </body>
 </html>

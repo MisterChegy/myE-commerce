@@ -16,39 +16,39 @@ import com.util.MyUtil;
 @Service("orderService")
 @Transactional
 /**
- * ¶©µ¥Éú³ÉÓÐÁ¬´®µÄ¸üÐÂ²Ù×÷£¬´Ë´¦±ØÐëÊ¹ÓÃÊÂÎñ¹ÜÀí
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½Â²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë´ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 public class OrderServiceImpl implements OrderService{
 	@Autowired
 	private OrderDao orderDao;
 	/**
-	 * ¶©µ¥Ìá½»£¬Á¬ÐøµÄÊÂÎñ´¦Àí
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½á½»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
-	@Override
+	
 	public String orderSubmit(Model model, HttpSession session, Double amount) {
 		Order order = new Order();
 		order.setAmount(amount);
 		order.setBusertable_id(MyUtil.getUserId(session));
-		//Éú³É¶©µ¥£¬²¢½«Ö÷¼ü·µ»Øorder
+		//ï¿½ï¿½ï¿½É¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½order
 		orderDao.addOrder(order);
-		//Éú³É¶©µ¥ÏêÇé
+		//ï¿½ï¿½ï¿½É¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("ordersn", order.getId());
 		map.put("uid", MyUtil.getUserId(session));
 		orderDao.addOrderDetail(map);
-		//¸üÐÂÉÌÆ·¿â´æ
-		//¸üÐÂÉÌÆ·¿â´æ1.²éÑ¯ÉÌÆ·¹ºÂòÁ¿£¬ÒÔ±ã¸üÐÂ¿â´æÊ¹ÓÃ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½1.ï¿½ï¿½Ñ¯ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½Â¿ï¿½ï¿½Ê¹ï¿½ï¿½
 		List<Map<String, Object>> list = orderDao.selectGoodsShop(MyUtil.getUserId(session));
-		//¸üÐÂÉÌÆ·¿â´æ2.¸ù¾ÝÉÌÆ·¹ºÂòÁ¿¸üÐÂ¿â´æ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½2.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¿ï¿½ï¿½
 		for (Map<String, Object> map2 : list) {
 			orderDao.updateStore(map2);
 		}
-		//Çå¿Õ¹ºÎï³µ
+		//ï¿½ï¿½Õ¹ï¿½ï¿½ï³µ
 		orderDao.clear(MyUtil.getUserId(session));
 		model.addAttribute("ordersn", order.getId());
 		return "before/orderdone";
 	}
-	@Override
+	
 	public String pay(Integer ordersn) {
 		orderDao.pay(ordersn);
 		return "before/paydone";

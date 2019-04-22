@@ -17,24 +17,24 @@ import com.po.Buser;
 public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserDao userDao;
-	@Override
+	
 	public String register(Buser buser, Model model, HttpSession session, String code) {
 		if(!code.equalsIgnoreCase(session.getAttribute("code").toString())) {
-			model.addAttribute("codeError", "ÑéÖ¤Âë´íÎó£¡");
+			model.addAttribute("codeError", "éªŒè¯ç é”™è¯¯ï¼");
 			return "before/register";
 		}
 		int n = userDao.register(buser);
 		if(n > 0) {
 			return "before/login";
 		}else {
-			model.addAttribute("msg", "×¢²áÊ§°Ü£¡");
+			model.addAttribute("msg", "æ³¨å†Œå¤±è´¥ï¼");
 			return "before/register";
 		}
 	}
-	@Override
+	
 	public String login(Buser buser, Model model, HttpSession session, String code) {
 		if(!code.equalsIgnoreCase(session.getAttribute("code").toString())) {
-			model.addAttribute("msg", "ÑéÖ¤Âë´íÎó£¡");
+			model.addAttribute("msg", "éªŒè¯ç é”™è¯¯ï¼");
 			return "before/login";
 		}
 		Buser ruser = null;
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService{
 			session.setAttribute("bruser", ruser);
 			return "forward:/before";
 		}else {
-			model.addAttribute("msg", "ÓÃ»§Ãû»òÃÜÂë´íÎó£¡");
+			model.addAttribute("msg", "ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯ï¼");
 			return "before/login";
 		}
 	}

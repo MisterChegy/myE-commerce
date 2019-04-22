@@ -16,22 +16,22 @@ public class AdminUserServiceImpl implements AdminUserService{
 	private CartDao cartDao;
 	@Autowired
 	private UserCenterDao userCenterDao;
-	@Override
+	
 	public String userInfo(Model model) {
 		model.addAttribute("userList", adminUserDao.userInfo());
 		return "admin/userManager";
 	}
-	@Override
+	
 	public String deleteuserManager(Integer id, Model model) {
-		//ÓÃ»§ÓÐ¹ØÁª
+		//ï¿½Ã»ï¿½ï¿½Ð¹ï¿½ï¿½ï¿½
 		if(cartDao.selectCart(id).size() > 0 ||
 				userCenterDao.myFocus(id).size() > 0||
 				userCenterDao.myOrder(id).size() > 0) {
-			model.addAttribute("msg", "ÓÃ»§ÓÐ¹ØÁª£¬²»ÄÜÉ¾³ý£¡");
+			model.addAttribute("msg", "ï¿½Ã»ï¿½ï¿½Ð¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½");
 			return "forward:/adminUser/userInfo";
 		}
 		if(adminUserDao.deleteuserManager(id) > 0) 
-			model.addAttribute("msg", "³É¹¦É¾³ýÓÃ»§£¡");
+			model.addAttribute("msg", "ï¿½É¹ï¿½É¾ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½");
 		return "forward:/adminUser/userInfo";
 	}
 

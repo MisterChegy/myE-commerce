@@ -19,30 +19,28 @@ import com.util.MyUtil;
 public class CartServiceImpl implements CartService{
 	@Autowired
 	private CartDao cartDao;
-	@Override
 	public String focus(Model model, Integer id, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("uid", MyUtil.getUserId(session));
 		map.put("gid", id);
 		List<Map<String, Object>> list = cartDao.isFocus(map);
 		if(list.size() > 0) {
-			model.addAttribute("msg", "ÒÑ¹Ø×¢¸ÃÉÌÆ·£¡");
+			model.addAttribute("msg", "ï¿½Ñ¹ï¿½×¢ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½");
 		}else {
 			int n = cartDao.focus(map);
 			if(n > 0)
-				model.addAttribute("msg", "³É¹¦¹Ø×¢¸ÃÉÌÆ·£¡");
+				model.addAttribute("msg", "ï¿½É¹ï¿½ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½");
 			else
-				model.addAttribute("msg", "¹Ø×¢Ê§°Ü£¡");
+				model.addAttribute("msg", "ï¿½ï¿½×¢Ê§ï¿½Ü£ï¿½");
 		}
 		return "forward:/goodsDetail?id=" + id;
 	}
-	@Override
 	public String putCart(Model model, Integer shoppingnum, Integer id, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("uid", MyUtil.getUserId(session));
 		map.put("gid", id);
 		map.put("shoppingnum", shoppingnum);
-		//ÊÇ·ñÒÑÌí¼Ó¹ºÎï³µ
+		//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ó¹ï¿½ï¿½ï³µ
 		List<Map<String, Object>> list = cartDao.isPutCart(map);
 		if(list.size() > 0)
 			cartDao.updateCart(map);
@@ -50,7 +48,6 @@ public class CartServiceImpl implements CartService{
 			cartDao.putCart(map);
 		return "forward:/cart/selectCart";
 	}
-	@Override
 	public String selectCart(Model model, HttpSession session) {
 		List<Map<String, Object>> list = cartDao.selectCart(MyUtil.getUserId(session));
 		double sum = 0;
@@ -61,7 +58,6 @@ public class CartServiceImpl implements CartService{
 		model.addAttribute("cartlist", list);
 		return "before/cart";
 	}
-	@Override
 	public String deleteAgoods(Integer id, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("uid", MyUtil.getUserId(session));
@@ -69,12 +65,10 @@ public class CartServiceImpl implements CartService{
 		cartDao.deleteAgoods(map);
 		return "forward:/cart/selectCart";
 	}
-	@Override
 	public String clear(HttpSession session) {
 		cartDao.clear(MyUtil.getUserId(session));
 		return "forward:/cart/selectCart";
 	}
-	@Override
 	public String orderConfirm(Model model, HttpSession session) {
 		List<Map<String, Object>> list = cartDao.selectCart(MyUtil.getUserId(session));
 		double sum = 0;

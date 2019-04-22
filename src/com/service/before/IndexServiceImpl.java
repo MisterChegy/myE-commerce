@@ -25,7 +25,7 @@ public class IndexServiceImpl implements IndexService{
 	private AdminTypeDao adminTypeDao;
 	@Autowired
 	private AdminNoticeDao adminNoticeDao;
-	@Override
+	
 	public String before(Model model, HttpSession session, Goods goods) {
 		session.setAttribute("goodsType", adminTypeDao.selectGoodsType());
 		model.addAttribute("salelist", indexDao.getSaleOrder());
@@ -37,33 +37,33 @@ public class IndexServiceImpl implements IndexService{
 		return "before/index";
 	}
 
-	@Override
+	
 	public String toRegister(Model model) {
 		model.addAttribute("rbuser", new Buser());
 		return "before/register";
 	}
 
-	@Override
+	
 	public String toLogin(Model model) {
 		model.addAttribute("lbuser", new Buser());
 		return "before/login";
 	}
 
-	@Override
+	
 	public String goodsDetail(Model model, Integer id) {
 		Goods goods = indexDao.selectGoodsById(id);
 		model.addAttribute("goods", goods);
 		return "before/goodsdetail";
 	}
 
-	@Override
+	
 	public String selectANotice(Model model, Integer id) {
 		Notice notice = adminNoticeDao.selectANotice(id);
 		model.addAttribute("notice", notice);
 		return "admin/noticeDetail";
 	}
 
-	@Override
+	
 	public String search(Model model, String mykey) {
 		List<Goods> list = indexDao.search(mykey);
 		model.addAttribute("searchlist", list);

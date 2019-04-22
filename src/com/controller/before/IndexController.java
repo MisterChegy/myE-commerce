@@ -1,4 +1,5 @@
 package com.controller.before;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,42 +14,42 @@ public class IndexController {
 	@Autowired
 	private IndexService indexService;
 	/**
-	 * Ê×Ò³
+	 * é¦–é¡µ
 	 */
-	@RequestMapping("/before")
-	public String before(Model model,HttpSession session, Goods goods) {
-		return indexService.before(model, session, goods);
+	@RequestMapping(value = {"/","/before"})
+	public String before(Model model,HttpSession session,Goods goods) {
+		return indexService.before(model,session,goods);
 	}
 	/**
-	 * ×ªµ½×¢²áÒ³Ãæ
+	 * è·³è½¬åˆ°æ³¨å†Œé¡µé¢
 	 */
 	@RequestMapping("/toRegister")
 	public String toRegister(Model model) {
 		return indexService.toRegister(model);
 	}
 	/**
-	 * ×ªµ½µÇÂ¼Ò³Ãæ
+	 * è½¬åˆ°ç™»å½•é¡µé¢
 	 */
 	@RequestMapping("/toLogin")
 	public String toLogin(Model model) {
 		return indexService.toLogin(model);
 	}
 	/**
-	 * ×ªµ½ÉÌÆ·ÏêÇéÒ³
+	 * è½¬åˆ°å•†å“è¯¦æƒ…é¡µ
 	 */
 	@RequestMapping("/goodsDetail")
 	public String goodsDetail(Model model,Integer id) {
 		return indexService.goodsDetail(model, id);
 	}
 	/**
-	 * ×ªµ½¹«¸æÒ³Ãæ
+	 * è½¬åˆ°å…¬å‘Šé¡µé¢
 	 */
 	@RequestMapping("/selectANotice")
 	public String selectANotice(Model model,Integer id) {
 		return indexService.selectANotice(model, id);
 	}
 	/**
-	 * Ê×Ò³ËÑË÷
+	 * é¦–é¡µæœç´¢
 	 */
 	@RequestMapping("/search")
 	public String search(Model model,String mykey) {

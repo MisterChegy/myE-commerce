@@ -19,7 +19,7 @@ public class AdminGoodsController extends BaseController{
 		return adminGoodsService.selectGoods(model, pageCur, act);
 	}
 	/**
-	 * addÒ³Ãæ³õÊ¼»¯
+	 * addé¡µé¢åˆå§‹åŒ–
 	 */
 	@RequestMapping("/toAddGoods")
 	public String toAddGoods(Model model){
@@ -27,28 +27,28 @@ public class AdminGoodsController extends BaseController{
 		return "admin/addGoods";
 	}
 	/**
-	 * Ìí¼ÓÓëĞŞ¸Ä
+	 * æ·»åŠ ä¸ä¿®æ”¹
 	 */
 	@RequestMapping("/addGoods")
 	public String addGoods(@ModelAttribute Goods goods, HttpServletRequest request, String updateAct){
 		return adminGoodsService.addOrUpdateGoods(goods, request, updateAct);
 	}
 	/**
-	 * ²éÑ¯Ò»¸öÃûÆ¬
+	 * æŸ¥è¯¢ä¸€ä¸ªåç‰‡
 	 */
 	@RequestMapping("/selectAGoods")
 	public String selectAGoods(Model model, Integer id, String act){
 		return adminGoodsService.selectAGoods(model, id, act);
 	}
 	/**
-	 * É¾³ı¶à¸öÉÌÆ·
+	 * åˆ é™¤å¤šä¸ªå•†å“
 	 */
 	@RequestMapping("/deleteGoods")
 	public String deleteGoods(Integer ids[], Model model) {
 		return adminGoodsService.deleteGoods(ids, model);
 	}
 	/**
-	 * É¾³ıµ¥¸öÉÌÆ·
+	 * åˆ é™¤å•ä¸ªå•†å“
 	 */
 	@RequestMapping("/deleteAGoods")
 	public String deleteAGoods(Integer id, Model model) {

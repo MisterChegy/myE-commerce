@@ -9,6 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 <title>首页</title>
+<link rel="icon" href="images/site_logo.jpg" type="image/x-icon">
 <link href="css/before/daohang.css" rel="stylesheet" type="text/css" />
 <link href="css/before/common.css" rel="stylesheet" type="text/css" />
 <link href="css/before/style.css" rel="stylesheet" type="text/css" />

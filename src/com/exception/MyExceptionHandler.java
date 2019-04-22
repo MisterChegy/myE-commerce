@@ -7,21 +7,26 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 import com.po.Auser;
 import com.po.Buser;
+
+/**
+ * 瀵圭郴缁熻繘琛岀粺涓�寮傚父澶勭悊
+ * @author Administrator
+ *
+ */
 public class MyExceptionHandler implements HandlerExceptionResolver {
-	@Override
 	public ModelAndView resolveException(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2,
 			Exception arg3) {
 	   	Map<String, Object> model = new HashMap<String, Object>();  
         model.put("ex", arg3); 
-        // 根据不同错误转向不同页面  
+        // 鏍规嵁涓嶅悓閿欒杞悜涓嶅悓椤甸潰
        if(arg3 instanceof AdminLoginNoException){
-        	//登录页面需要auser对象
+        	//鐧诲綍椤甸潰闇�瑕乤user瀵硅薄
         	arg0.setAttribute("auser", new Auser());
-        	arg0.setAttribute("msg", "没有登录，请登录！");
+        	arg0.setAttribute("msg", "No login, please login!");
         	return new ModelAndView("/admin/login", model);
         } else if(arg3 instanceof UserLoginNoException){
         	arg0.setAttribute("buser", new Buser());
-        	arg0.setAttribute("msg", "没有登录，请登录！");
+        	arg0.setAttribute("msg", "No login, please login!");
         	return new ModelAndView("/before/login", model);
        }else{  
         	return new ModelAndView("/error/error", model);  

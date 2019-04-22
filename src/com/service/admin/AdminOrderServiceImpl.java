@@ -15,17 +15,17 @@ import com.dao.AdminOrderDao;
 public class AdminOrderServiceImpl implements AdminOrderService{
 	@Autowired
 	private AdminOrderDao adminOrderDao;
-	@Override
+	
 	public String orderInfo(Model model) {
 		List<Map<String,Object>> list = adminOrderDao.orderInfo();
 		model.addAttribute("orderList", list);
 		return "admin/orderManager";
 	}
-	@Override
+	
 	public String deleteorderManager(Integer id) {
-		//ÏÈÉ¾³ýÃ÷Ï¸
+		//ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½Ï¸
 		adminOrderDao.deleteOrderDetail(id);
-		//ÔÙÉ¾³ý¶©µ¥»ù´¡
+		//ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		adminOrderDao.deleteOrderBase(id);
 		return "forward:/adminOrder/orderInfo";
 	}

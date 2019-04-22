@@ -5,7 +5,7 @@ import javax.servlet.http.HttpSession;
 import com.po.Buser;
 public class MyUtil {
 	/**
-	 * »ñµÃÊ±¼ä×Ö·û´®
+	 * èŽ·å¾—æ—¶é—´å­—ç¬¦ä¸²
 	 */
 	public static String getStringID(){
 		String id=null;
@@ -15,7 +15,7 @@ public class MyUtil {
 		return id;
 	}
 	/**
-	 * »ñµÃÓÃ»§ID
+	 * èŽ·å¾—ç”¨æˆ·ID
 	 */
 	public static Integer getUserId(HttpSession session) {
 		Buser ruser = (Buser)session.getAttribute("bruser");

@@ -15,13 +15,13 @@ import com.util.MyUtil;
 public class UserCenterServiceImpl implements UserCenterService{
 	@Autowired
 	private UserCenterDao userCenterDao;
-	@Override
+	
 	public String userCenter(HttpSession session, Model model) {
 		model.addAttribute("myOrder", userCenterDao.myOrder(MyUtil.getUserId(session)));
 		model.addAttribute("myFocus", userCenterDao.myFocus(MyUtil.getUserId(session)));
 		return "before/userCenter";
 	}
-	@Override
+	
 	public String orderDetail(Model model, Integer ordersn) {
 		model.addAttribute("myOrderDetail", userCenterDao.orderDetail(ordersn));
 		return "before/userOrderDetail";

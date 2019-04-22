@@ -4,7 +4,7 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-<jsp:include page="head.jsp"></jsp:include>
+<jsp:include page="head.jsp"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<img class="iteration" src="images/before/top_${status.index+1 }.gif" />
 								<li class="topimg">
 								<a href="goodsDetail?id=${sg.id }"> 
-									<img class="samllimg" alt="" src="logos/${sg.gpicture}" /></a></li>
+									<img class="samllimg" alt="图片" src="file/download.do?fileName=${sg.gpicture}" /></a></li>
 								<li class="iteration1">
 								<a href="goodsDetail?id=${sg.id }">${sg.gname }</a><br />
 								 售价：<font class="f1">￥${sg.grprice }元</font><br /></li>
@@ -58,7 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<img class="iteration" src="images/before/top_${status.index+1 }.gif" />
 							<li class="topimg">
 							<a href="goodsDetail?id=${sg.id }"> 
-								<img class="samllimg" alt="" src="logos/${sg.gpicture}" /></a></li>
+								<img class="samllimg" alt="" src="file/download.do?fileName=${sg.gpicture}" /></a></li>
 							<li class="iteration1">
 							<a href="goodsDetail?id=${sg.id }">${sg.gname }</a><br />
 							 售价：<font class="f1">￥${sg.grprice }元</font><br /></li>
@@ -111,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<div>
 											<p class="pic">
 												<a href="goodsDetail?id=${sg.id }">
-												<img src="logos/${sg.gpicture}" /></a>
+												<img src="file/download.do?fileName=${sg.gpicture}" /></a>
 											</p>
 											<p class="wz">
 												<strong><a href="goodsDetail?id=${sg.id }">${sg.gname }</a></strong>

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 /**
- * ÑéÖ¤Âë
+ * éªŒè¯ç 
  */
 @Controller
 public class ValidateCodeController {
@@ -30,11 +30,11 @@ public class ValidateCodeController {
 	public void validateCode(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		// ÉèÖÃÏìÓ¦±¨Í·ĞÅÏ¢
+		// è®¾ç½®å“åº”æŠ¥å¤´ä¿¡æ¯
 		response.setHeader("Pragma", "No-cache");
 		response.setHeader("Cache-Control", "no-cache");
 		response.setDateHeader("Expires", 0);
-		// ÉèÖÃÏìÓ¦µÄMIMEÀàĞÍ
+		// è®¾ç½®å“åº”çš„MIMEç±»å‹
 		response.setContentType("image/jpeg");
 
 		BufferedImage image = new BufferedImage(WIDTH, HEIGHT,
@@ -43,19 +43,19 @@ public class ValidateCodeController {
 		Graphics g = image.getGraphics();
 		Random rd = new Random();
 
-		// ÉèÖÃ±³¾°ÑÕÉ«
+		// è®¾ç½®èƒŒæ™¯é¢œè‰²
 		g.setColor(new Color(rd.nextInt(55) + 200, rd.nextInt(55) + 200, rd
 				.nextInt(55) + 200));
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 
-		// ÉèÖÃ×ÖÌå
+		// è®¾ç½®å­—ä½“
 		g.setFont(mFont);
 
-		// »­±ß¿ò
+		// ç”»è¾¹æ¡†
 		g.setColor(Color.black);
 		g.drawRect(0, 0, WIDTH - 1, HEIGHT - 1);
 
-		// Ëæ»ú²úÉúµÄÑéÖ¤Âë
+		// éšæœºäº§ç”Ÿçš„éªŒè¯ç 
 		String result = "";
 		for (int i = 0; i < LENGTH; ++i) {
 			result += code[rd.nextInt(code.length)];
@@ -63,14 +63,14 @@ public class ValidateCodeController {
 		HttpSession se = request.getSession();
 		se.setAttribute("code", result);
 
-		// »­ÑéÖ¤Âë
+		// ç”»éªŒè¯ç 
 		for (int i = 0; i < result.length(); i++) {
 			g.setColor(new Color(rd.nextInt(200), rd.nextInt(200), rd
 					.nextInt(200)));
 			g.drawString(result.charAt(i) + "", 12 * i + 1, 16);
 		}
 
-		// Ëæ»ú²úÉú2¸ö¸ÉÈÅÏß
+		// éšæœºäº§ç”Ÿ2ä¸ªå¹²æ‰°çº¿
 		for (int i = 0; i < 2; i++) {
 			g.setColor(new Color(rd.nextInt(200), rd.nextInt(200), rd
 					.nextInt(200)));
@@ -81,12 +81,12 @@ public class ValidateCodeController {
 			g.drawLine(x1, y1, x2, y2);
 		}
 
-		// ÊÍ·ÅÍ¼ĞÎ×ÊÔ´
+		// é‡Šæ”¾å›¾å½¢èµ„æº
 		g.dispose();
 		try {
 			OutputStream os = response.getOutputStream();
 
-			// Êä³öÍ¼Ïñµ½Ò³Ãæ
+			// è¾“å‡ºå›¾åƒåˆ°é¡µé¢
 			ImageIO.write(image, "JPEG", os);
 		} catch (IOException e) {
 			e.printStackTrace();

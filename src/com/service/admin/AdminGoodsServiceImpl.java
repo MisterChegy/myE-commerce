@@ -22,47 +22,44 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 	@Autowired
 	private AdminGoodsDao adminGoodsDao;
 	/**
-	 * Ìí¼Ó»ò¸üĞÂ
+	 * æ·»åŠ æˆ–è€…æ›´æ–°å•†å“
 	 */
-	@Override
+	
 	public String addOrUpdateGoods(Goods goods, HttpServletRequest request, String updateAct) {
-		/*ÉÏ´«ÎÄ¼şµÄ±£´æÎ»ÖÃ"/logos"£¬¸ÃÎ»ÖÃÊÇÖ¸
-		workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps£¬
-		·¢²¼ºóÊ¹ÓÃ*/
-		//·ÀÖ¹ÎÄ¼şÃûÖØÃû
+		
+		//é˜²æ­¢æ–‡ä»¶åé‡å
 		String newFileName = "";
 		String fileName = goods.getLogoImage().getOriginalFilename(); 
-		//Ñ¡ÔñÁËÎÄ¼ş
+		//é€‰æ‹©äº†æ–‡ä»¶
 		if(fileName.length() > 0){
-			String realpath = request.getServletContext().getRealPath("logos");
-			//ÊµÏÖÎÄ¼şÉÏ´«
+			String realpath = "C:/Users/Administrator/Pictures/ecommeration/";
+			//Êµå®ç°æ–‡ä»¶ä¸Šä¼ 
 			String fileType = fileName.substring(fileName.lastIndexOf('.'));
-			//·ÀÖ¹ÎÄ¼şÃûÖØÃû
+			//é˜²æ­¢æ–‡ä»¶åé‡å
 			newFileName = MyUtil.getStringID() + fileType;
 			goods.setGpicture(newFileName);
 			File targetFile = new File(realpath, newFileName); 
 			if(!targetFile.exists()){  
 	            targetFile.mkdirs();  
 	        } 
-			//ÉÏ´« 
+			//ä¸Šä¼ 
 	        try {   
 	        	goods.getLogoImage().transferTo(targetFile);
 	        } catch (Exception e) {  
 	            e.printStackTrace();  
 	        }  
 		}
-		//ĞŞ¸Ä
-		if("update".equals(updateAct)){//updateAct²»ÄÜÓëactÖØÃû£¬ÒòÎªÊ¹ÓÃÁË×ª·¢
-			//ĞŞ¸Äµ½Êı¾İ¿â
+		//ä¿®æ”¹
+		if("update".equals(updateAct)){//updataActä¸èƒ½ä¸acté‡åï¼Œå› ä¸ºä½¿ç”¨äº†è½¬å‘ä¿®æ”¹åˆ°æ•°æ®åº“
 	       if(adminGoodsDao.updateGoodsById(goods) > 0){
 	        	return "forward:/adminGoods/selectGoods?act=updateSelect";
 	        }else{
 	        	return "/adminGoods/updateAgoods";
 	       }
-		}else{//Ìí
-			//±£´æµ½Êı¾İ¿â
+		}else{
+			//ä¿å­˜åˆ°æ•°æ®åº“
 			if(adminGoodsDao.addGoods(goods) > 0){
-				//×ª·¢µ½²éÑ¯µÄcontroller
+				//è½¬å‘åˆ°æŸ¥è¯¢çš„controller
 				return "forward:/adminGoods/selectGoods";
 			}else{
 				return "card/addCard";
@@ -70,18 +67,18 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 		}
 	}
 	/**
-	 * ²éÑ¯ÉÌÆ·
+	 * æŸ¥è¯¢å•†å“åˆ—è¡¨
 	 */
-	@Override
+	
 	public String selectGoods(Model model, Integer pageCur, String act) {
 		List<Goods> allGoods = adminGoodsDao.selectGoods();
 		int temp = allGoods.size();
 		model.addAttribute("totalCount", temp);
 		int totalPage = 0;
 		if (temp == 0) {
-			totalPage = 0;//×ÜÒ³Êı
+			totalPage = 0;//æ€»é¡µæ•°
 		} else {
-			//·µ»Ø´óÓÚ»òÕßµÈÓÚÖ¸¶¨±í´ïÊ½µÄ×îĞ¡ÕûÊı
+			//è¿”å›å¤§äºæˆ–è€…ç­‰äºæŒ‡å®šè¡¨è¾¾å¼çš„æœ€å°æ•´æ•°
 			totalPage = (int) Math.ceil((double) temp / 10);
 		}
 		if (pageCur == null) {
@@ -90,19 +87,19 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 		if ((pageCur - 1) * 10 > temp) {
 			pageCur = pageCur - 1;
 		}
-		//·ÖÒ³²éÑ¯
+		//åˆ†é¡µæŸ¥è¯¢
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("startIndex", (pageCur - 1) * 10);//ÆğÊ¼Î»ÖÃ
-		map.put("perPageSize", 10);//Ã¿Ò³10¸ö
+		map.put("startIndex", (pageCur - 1) * 10);//èµ·å§‹ä½ç½®
+		map.put("perPageSize", 10);//æ¯é¡µ10ä¸ª
 		allGoods = adminGoodsDao.selectAllGoodsByPage(map);
 		model.addAttribute("allGoods", allGoods);
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("pageCur", pageCur);
-		//É¾³ı²éÑ¯
+		//åˆ é™¤æŸ¥è¯¢
 		if("deleteSelect".equals(act)){
 			return "admin/deleteSelectGoods";
 		}
-		//ĞŞ¸Ä²éÑ¯
+		//ä¿®æ”¹æŸ¥è¯¢
 		else if("updateSelect".equals(act)){
 			return "admin/updateSelectGoods";
 		}else{
@@ -110,53 +107,53 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 		}
 	}
 	/**
-	 * ²éÑ¯Ò»¸öÉÌÆ·
+	 * æŸ¥è¯¢ä¸€ä¸ªå•†å“
 	 */
-	@Override
+	
 	public String selectAGoods(Model model, Integer id, String act) {
 		Goods agoods = adminGoodsDao.selectGoodsById(id);
 		model.addAttribute("goods", agoods);
-		//ĞŞ¸ÄÒ³Ãæ
+		//ä¿®æ”¹é¡µé¢
 		if("updateAgoods".equals(act)){
 			return "admin/updateAgoods";
 		}
-		//ÏêÇéÒ³Ãæ
+		//è¯¦æƒ…é¡µé¢
 		return "admin/goodsDetail";
 	}
 	/**
-	 * É¾³ı¶à¸öÉÌÆ·
+	 * åˆ é™¤å¤šä¸ªå•†å“
 	 */
-	@Override
+	
 	public String deleteGoods(Integer[] ids, Model model) {
 		List<Integer> list = new ArrayList<Integer>();
 		for (int i = 0; i < ids.length; i++) {
-			//ÉÌÆ·ÓĞ¹ØÁª
+			//å•†å“æœ‰å…³è”
 			if(adminGoodsDao.selectCartGoods(ids[i]).size() > 0 ||
 					adminGoodsDao.selectFocusGoods(ids[i]).size() > 0 || 
 					adminGoodsDao.selectOrderdetailGoods(ids[i]).size() > 0) {
-				model.addAttribute("msg", "ÉÌÆ·ÓĞ¹ØÁª£¬²»ÔÊĞíÉ¾³ı£¡");
+				model.addAttribute("msg", "Goods are related and not allowed to be deleted!");
 				return "forward:/adminGoods/selectGoods?act=deleteSelect";
 			}
 			list.add(ids[i]);
 		}
 		adminGoodsDao.deleteGoods(list);
-		model.addAttribute("msg", "³É¹¦É¾³ıÉÌÆ·£¡");
+		model.addAttribute("msg", "delete it success!");
 		return "forward:/adminGoods/selectGoods?act=deleteSelect";
 	}
 	/**
-	 * É¾³ıÒ»¸öÉÌÆ·
+	 * åˆ é™¤ä¸€ä¸ªå•†å“
 	 */
-	@Override
+	
 	public String deleteAGoods(Integer id, Model model) {
-		//ÉÌÆ·ÓĞ¹ØÁª
+		//å•†å“æœ‰å…³è”
 		if(adminGoodsDao.selectCartGoods(id).size() > 0 ||
 				adminGoodsDao.selectFocusGoods(id).size() > 0 || 
 				adminGoodsDao.selectOrderdetailGoods(id).size() > 0) {
-			model.addAttribute("msg", "ÉÌÆ·ÓĞ¹ØÁª£¬²»ÔÊĞíÉ¾³ı£¡");
+			model.addAttribute("msg", "Goods are related and not allowed to be deleted!");
 			return "forward:/adminGoods/selectGoods?act=deleteSelect";
 		}
 		adminGoodsDao.deleteAGoods(id);
-		model.addAttribute("msg", "³É¹¦É¾³ıÉÌÆ·£¡");
+		model.addAttribute("msg", "delete it success!");
 		return "forward:/adminGoods/selectGoods?act=deleteSelect";
 	}
 }

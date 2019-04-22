@@ -15,14 +15,14 @@ public class OrderController extends BaseBeforeController{
 	@Autowired
 	private OrderService orderService;
 	/**
-	 * 提交订单
+	 * 鎻愪氦璁㈠崟
 	 */
 	@RequestMapping("/orderSubmit")
 	public String orderSubmit(Model model, HttpSession session,Double amount) {
 		return orderService.orderSubmit(model, session, amount);
 	}
 	/**
-	 * 支付订单
+	 * 鏀粯璁㈠崟
 	 */
 	@RequestMapping("/pay")
 	public String pay(Integer ordersn) {
