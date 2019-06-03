@@ -32,7 +32,8 @@ public class AdminGoodsServiceImpl implements AdminGoodsService{
 		String fileName = goods.getLogoImage().getOriginalFilename(); 
 		//选择了文件
 		if(fileName.length() > 0){
-			String realpath = "C:/Users/Administrator/Pictures/ecommeration/";
+			//  /root/pictures/ecommeration/
+			String realpath = "/root/pictures/ecommeration/";
 			//ʵ实现文件上传
 			String fileType = fileName.substring(fileName.lastIndexOf('.'));
 			//防止文件名重名

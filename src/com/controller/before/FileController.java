@@ -17,7 +17,8 @@ public class FileController {
 	//文件下载
 	@RequestMapping("download.do")
 	public ResponseEntity<byte[]> download(String fileName) throws IOException {
-		String path = "C:/Users/Administrator/Pictures/ecommeration/"+fileName;
+		//   /root/pictures/ecommeration/
+		String path = "/root/pictures/ecommeration/"+fileName;
 		File file = new File(path);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);

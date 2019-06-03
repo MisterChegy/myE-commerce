@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="imgInfo">
 					<input type="hidden" name="id"
 						value="${goods.id }"/><img
-						src="logos/${goods.gpicture}"
+						src="file/download.do?fileName=${goods.gpicture}"
 						width="230px" height="230px" />
 				</div>
 			</div>

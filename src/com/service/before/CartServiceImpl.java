@@ -19,28 +19,29 @@ import com.util.MyUtil;
 public class CartServiceImpl implements CartService{
 	@Autowired
 	private CartDao cartDao;
+	
 	public String focus(Model model, Integer id, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("uid", MyUtil.getUserId(session));
 		map.put("gid", id);
 		List<Map<String, Object>> list = cartDao.isFocus(map);
 		if(list.size() > 0) {
-			model.addAttribute("msg", "�ѹ�ע����Ʒ��");
+			model.addAttribute("msg", "已关注该商品！");
 		}else {
 			int n = cartDao.focus(map);
 			if(n > 0)
-				model.addAttribute("msg", "�ɹ���ע����Ʒ��");
+				model.addAttribute("msg", "成功关注该商品！");
 			else
-				model.addAttribute("msg", "��עʧ�ܣ�");
+				model.addAttribute("msg", "关注失败！");
 		}
 		return "forward:/goodsDetail?id=" + id;
-	}
+	}	
 	public String putCart(Model model, Integer shoppingnum, Integer id, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("uid", MyUtil.getUserId(session));
 		map.put("gid", id);
 		map.put("shoppingnum", shoppingnum);
-		//�Ƿ�����ӹ��ﳵ
+		// 是否已添加购物车
 		List<Map<String, Object>> list = cartDao.isPutCart(map);
 		if(list.size() > 0)
 			cartDao.updateCart(map);
@@ -48,6 +49,7 @@ public class CartServiceImpl implements CartService{
 			cartDao.putCart(map);
 		return "forward:/cart/selectCart";
 	}
+	
 	public String selectCart(Model model, HttpSession session) {
 		List<Map<String, Object>> list = cartDao.selectCart(MyUtil.getUserId(session));
 		double sum = 0;
@@ -58,6 +60,7 @@ public class CartServiceImpl implements CartService{
 		model.addAttribute("cartlist", list);
 		return "before/cart";
 	}
+	
 	public String deleteAgoods(Integer id, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("uid", MyUtil.getUserId(session));
@@ -65,10 +68,12 @@ public class CartServiceImpl implements CartService{
 		cartDao.deleteAgoods(map);
 		return "forward:/cart/selectCart";
 	}
+	
 	public String clear(HttpSession session) {
 		cartDao.clear(MyUtil.getUserId(session));
 		return "forward:/cart/selectCart";
 	}
+	
 	public String orderConfirm(Model model, HttpSession session) {
 		List<Map<String, Object>> list = cartDao.selectCart(MyUtil.getUserId(session));
 		double sum = 0;

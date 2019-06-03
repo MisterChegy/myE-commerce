@@ -80,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<td bgcolor="#ffffff"  align="center">${mf.gname}</td>
 							<td align="center" bgcolor="#ffffff" height="60px"> <img
 									style="width: 50px; height: 50px;"
-									src="logos/${mf.gpicture}" border="0"
+									src="file/download.do?fileName=${mf.gpicture}" border="0"
 									title="${mf.gname}" /> </td>
 							<td align="center" bgcolor="#ffffff">${mf.grprice}</td>
 							<td align="center" bgcolor="#ffffff">
